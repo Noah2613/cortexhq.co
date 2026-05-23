@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cortex HQ — LinkedIn Authority Systems for B2B Professionals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #8a6d2f;
+    --bg: #0A0A0A;
+    --bg-card: #111111;
+    --bg-card2: #161616;
+    --border: rgba(201,168,76,0.18);
+    --border-subtle: rgba(255,255,255,0.06);
+    --text: #F0EDE6;
+    --text-muted: #8A8780;
+    --text-dim: #4A4845;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid var(--border-subtle);
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    color: var(--gold) !important;
+    border: 0.5px solid var(--border);
+    padding: 0.5rem 1.25rem;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold) !important;
+    color: var(--bg) !important;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 2.5rem 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 0.5px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 2rem;
+    max-width: 800px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-block;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border: 0.5px solid var(--border-subtle);
+    border-radius: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--gold); border-color: var(--border); }
+
+  .divider { width: 100%; height: 0.5px; background: var(--border-subtle); }
+
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2.5rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 0.5px;
+    background: var(--gold-dim);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-body {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 540px;
+    line-height: 1.85;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 4rem;
+    border: 0.5px solid var(--border-subtle);
+  }
+
+  .problem-item {
+    padding: 2.5rem;
+    background: var(--bg-card);
+    border-right: 0.5px solid var(--border-subtle);
+    border-bottom: 0.5px solid var(--border-subtle);
+    transition: background 0.2s;
+  }
+
+  .problem-item:hover { background: var(--bg-card2); }
+
+  .problem-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .problem-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .problem-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .service-card {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: transparent;
+    transition: background 0.2s;
+  }
+
+  .service-card:hover { background: var(--bg-card2); border-color: var(--border); }
+  .service-card:hover::before { background: var(--gold); }
+  .service-card.featured { border-color: var(--border); }
+  .service-card.featured::before { background: var(--gold); }
+
+  .service-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.25rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .service-price-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
+  }
+
+  .service-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
+  }
+
+  .service-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .service-list li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    line-height: 1.5;
+  }
+
+  .service-list li::before {
+    content: '—';
+    color: var(--gold-dim);
+    flex-shrink: 0;
+  }
+
+  .statement-section {
+    background: var(--bg-card);
+    border-top: 0.5px solid var(--border-subtle);
+    border-bottom: 0.5px solid var(--border-subtle);
+  }
+
+  .statement-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 7rem 2.5rem;
+    text-align: center;
+  }
+
+  .statement-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    font-weight: 300;
+    line-height: 1.35;
+    color: var(--text);
+    max-width: 820px;
+    margin: 0 auto 2rem;
+  }
+
+  .statement-quote em { color: var(--gold); font-style: italic; }
+
+  .statement-attr {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .steps {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 0.5px solid var(--border-subtle);
+    align-items: start;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1;
+    text-align: right;
+    padding-top: 0.1rem;
+  }
+
+  .step-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .step-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  .contact-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2.5rem;
+  }
+
+  .contact-direct {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 480px;
+  }
+
+  .contact-item {}
+
+  .contact-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-value {
+    font-size: 1.1rem;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+  }
+
+  .contact-value:hover { color: var(--gold); }
+
+  .contact-note {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 0.5px solid var(--border-subtle);
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    max-width: 440px;
+    line-height: 1.8;
+  }
+
+  footer {
+    border-top: 0.5px solid var(--border-subtle);
+    padding: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in { animation: fadeUp 0.8s ease forwards; }
+  .fade-in-1 { animation-delay: 0.1s; opacity: 0; }
+  .fade-in-2 { animation-delay: 0.25s; opacity: 0; }
+  .fade-in-3 { animation-delay: 0.4s; opacity: 0; }
+  .fade-in-4 { animation-delay: 0.55s; opacity: 0; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section, .contact-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 60px 1fr; gap: 1.25rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  .intake-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 5rem;
+    margin-top: 4rem;
+    align-items: start;
+  }
+
+  .intake-promise {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 1.75rem;
+  }
+
+  .intake-promise-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1rem;
+  }
+
+  .intake-promise-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .intake-promise-list li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    line-height: 1.5;
+  }
+
+  .intake-promise-list li::before {
+    content: "✓";
+    color: var(--gold);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .intake-form {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 2.5rem;
+  }
+
+  .intake-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .intake-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .intake-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .intake-input {
+    background: var(--bg);
+    border: 0.5px solid var(--border-subtle);
+    border-radius: 2px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .intake-input:focus { border-color: var(--gold); }
+  .intake-input::placeholder { color: var(--text-dim); }
+
+  .intake-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A4845' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .intake-select option { background: #111111; color: var(--text); }
+
+  .intake-textarea { resize: vertical; min-height: 90px; }
+
+  .intake-submit {
+    width: 100%;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .intake-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .intake-submit:active { transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .intake-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .intake-row { grid-template-columns: 1fr; }
+    .intake-form { padding: 1.75rem; }
+  }
+
+  .intake-grid { display:grid; grid-template-columns:320px 1fr; gap:5rem; margin-top:4rem; align-items:start; }
+  .intake-promise { background:var(--bg-card); border:0.5px solid var(--border-subtle); border-radius:4px; padding:1.75rem; }
+  .intake-promise-title { font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:1rem; }
+  .intake-promise-list { list-style:none; display:flex; flex-direction:column; gap:0.65rem; }
+  .intake-promise-list li { font-size:0.88rem; color:var(--text-muted); display:flex; align-items:flex-start; gap:0.6rem; line-height:1.5; }
+  .intake-promise-list li::before { content:"✓"; color:var(--gold); font-size:0.75rem; flex-shrink:0; margin-top:0.15rem; }
+  .intake-form { background:var(--bg-card); border:0.5px solid var(--border-subtle); border-radius:4px; padding:2.5rem; }
+  .intake-field { display:flex; flex-direction:column; gap:0.4rem; }
+  .intake-label { font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); }
+  .intake-input { background:var(--bg); border:0.5px solid var(--border-subtle); border-radius:2px; padding:0.85rem 1rem; color:var(--text); font-family:"DM Sans",sans-serif; font-size:0.9rem; font-weight:300; outline:none; transition:border-color 0.2s; width:100%; }
+  .intake-input:focus { border-color:var(--gold); }
+  .intake-input::placeholder { color:var(--text-dim); }
+  .intake-submit { width:100%; background:var(--gold); color:var(--bg); font-family:"DM Sans",sans-serif; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; padding:1rem 2rem; border:none; border-radius:2px; cursor:pointer; transition:background 0.2s, transform 0.15s; }
+  .intake-submit:hover { background:var(--gold-light); transform:translateY(-1px); }
+  .intake-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+  @media (max-width:900px) { .intake-grid { grid-template-columns:1fr; gap:3rem; } .intake-form { padding:1.75rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Cortex HQ</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow fade-in fade-in-1">LinkedIn Authority Systems</p>
+  <h1 class="fade-in fade-in-2">
+    Your LinkedIn is costing you<br /><em>clients every month.</em>
+  </h1>
+  <p class="hero-sub fade-in fade-in-3">
+    You're great at what you do. But if your LinkedIn doesn't show that clearly and consistently — the right clients are finding someone else. We fix that for you, completely done-for-you.
+  </p>
+  <div class="hero-actions fade-in fade-in-4">
+    <a href="#contact" class="btn-primary">Let's Talk</a>
+    <a href="#services" class="btn-ghost">See How It Works</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="problem">
+  <p class="section-label">Sound Familiar?</p>
+  <h2 class="section-title">You know you should be<br /><em>on LinkedIn. You're just not.</em></h2>
+  <p class="section-body">Most of the professionals we talk to aren't struggling because they lack skill or expertise. They're struggling because the right people can't find them. That's a solvable problem.</p>
+
+  <div class="problem-grid">
+    <div class="problem-item">
+      <p class="problem-num">01</p>
+      <p class="problem-title">"I never find the time."</p>
+      <p class="problem-desc">Between clients and actually running your business, LinkedIn always falls to the bottom of the list. And it stays there.</p>
+    </div>
+    <div class="problem-item">
+      <p class="problem-num">02</p>
+      <p class="problem-title">"I don't know what to post."</p>
+      <p class="problem-desc">You open LinkedIn, stare at a blank screen, and close the app. It's not a motivation problem — it's a system problem.</p>
+    </div>
+    <div class="problem-item">
+      <p class="problem-num">03</p>
+      <p class="problem-title">"I post, but nothing happens."</p>
+      <p class="problem-desc">When you do post, it's generic or inconsistent. No strategy behind it. No reason for the right person to stop and reach out.</p>
+    </div>
+    <div class="problem-item">
+      <p class="problem-num">04</p>
+      <p class="problem-title">"My profile doesn't reflect what I do."</p>
+      <p class="problem-desc">Your background is strong but your profile doesn't make it immediately clear why someone should reach out to you over everyone else.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="services">
+  <p class="section-label">How We Help</p>
+  <h2 class="section-title">Pick the level of support<br /><em>that fits where you are.</em></h2>
+  <p class="section-body">Whether you need a strong foundation to start or a fully managed system running month to month — every package ends the same way. You show up consistently. The right clients notice.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-badge">Starter</span>
+      <p class="service-price">$997</p>
+      <p class="service-price-note">One-time sprint · delivered in 14 days</p>
+      <p class="service-name">LinkedIn Visibility Sprint</p>
+      <p class="service-desc">If your LinkedIn isn't working for you right now, this is where to start. We build the foundation — your positioning, your voice, your first month of content — and hand it back to you ready to go.</p>
+      <ul class="service-list">
+        <li>LinkedIn profile audit</li>
+        <li>Headline and positioning rewrite</li>
+        <li>30-day content calendar</li>
+        <li>8 fully written LinkedIn posts</li>
+        <li>Brand voice guide</li>
+        <li>AI prompt library for ongoing use</li>
+      </ul>
+    </div>
+
+    <div class="service-card featured">
+      <span class="service-badge">Most Popular</span>
+      <p class="service-price">$1,500</p>
+      <p class="service-price-note">Setup + $750/mo ongoing</p>
+      <p class="service-name">LinkedIn Authority System</p>
+      <p class="service-desc">You focus on your clients. We handle everything else. Every month your content is written, your calendar is built, and your performance is tracked — without you touching a thing.</p>
+      <ul class="service-list">
+        <li>Full brand voice and strategy session</li>
+        <li>90-day content roadmap</li>
+        <li>12 LinkedIn posts per month</li>
+        <li>1 long-form article per month</li>
+        <li>Monthly performance report</li>
+        <li>2 rounds of revisions</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <span class="service-badge">Premium</span>
+      <p class="service-price">$3,000</p>
+      <p class="service-price-note">Setup + $1,500/mo ongoing</p>
+      <p class="service-name">Full Client Acquisition System</p>
+      <p class="service-desc">For professionals who are serious about becoming the recognized name in their market. Full LinkedIn management plus outreach messaging, newsletter, and a system designed to turn visibility into conversations.</p>
+      <ul class="service-list">
+        <li>Full brand positioning session</li>
+        <li>16 posts + 2 articles per month</li>
+        <li>Outreach and follow-up messaging</li>
+        <li>Newsletter draft monthly</li>
+        <li>Bi-weekly performance reviews</li>
+        <li>Unlimited revisions · 24-hr response</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="statement-section">
+  <div class="statement-inner">
+    <p class="statement-quote">"Most professionals we talk to aren't losing clients because of their skill. They're losing them because the right people <em>can't find them.</em> That's all we fix."</p>
+    <p class="statement-attr">— Noah Donovan, Founder · Cortex HQ</p>
+  </div>
+</div>
+
+<section id="how">
+  <p class="section-label">How It Works</p>
+  <h2 class="section-title">You do your work.<br /><em>We handle the rest.</em></h2>
+
+  <div class="steps">
+    <div class="step">
+      <p class="step-num">01</p>
+      <div class="step-content">
+        <p class="step-title">We Get to Know You</p>
+        <p class="step-heading">First, we make sure everything sounds like you.</p>
+        <p class="step-desc">We start with a structured onboarding that captures your offer, your audience, your voice, and your goals. Every post we write will sound like you wrote it — because it's built around how you actually think and communicate.</p>
+      </div>
+    </div>
+    <div class="step">
+      <p class="step-num">02</p>
+      <div class="step-content">
+        <p class="step-title">We Build and Deliver</p>
+        <p class="step-heading">Everything is ready before you need it.</p>
+        <p class="step-desc">Posts, articles, content calendars, and monthly performance reports — all delivered to your private portal on time, every month. You review it, approve it, and post it. That's your entire involvement if you want it to be.</p>
+      </div>
+    </div>
+    <div class="step">
+      <p class="step-num">03</p>
+      <div class="step-content">
+        <p class="step-title">The Right People Find You</p>
+        <p class="step-heading">Consistency does what cold outreach can't.</p>
+        <p class="step-desc">When you show up consistently with content that actually sounds like you, something shifts. Prospects research you before they reach out. They already trust you. The call is almost a formality. That's what a real LinkedIn presence does over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact" class="contact-section">
+  <p class="section-label">Let's Talk</p>
+  <h2 class="section-title">Tell us where you are.<br /><em>We'll take it from there.</em></h2>
+  <p class="section-body">Three fields. That's it. Noah personally reviews every submission and will reach out within 24 hours. No pitch. No pressure. Just a straight conversation about whether this is a fit.</p>
+
+  <div class="intake-grid">
+
+    <div class="intake-left">
+      <div class="contact-item" style="margin-bottom:2rem;">
+        <p class="contact-label">Founder</p>
+        <span class="contact-value">Noah Donovan</span>
+      </div>
+      <div class="contact-item" style="margin-bottom:2rem;">
+        <p class="contact-label">Email</p>
+        <a href="mailto:noah@cortexhq.co" class="contact-value">noah@cortexhq.co</a>
+      </div>
+      <div class="contact-item" style="margin-bottom:2.5rem;">
+        <p class="contact-label">Phone</p>
+        <a href="tel:4435833381" class="contact-value">443-583-8381</a>
+      </div>
+      <div class="intake-promise">
+        <p class="intake-promise-title">What happens next</p>
+        <ul class="intake-promise-list">
+          <li>Noah reviews your submission personally</li>
+          <li>You hear back within 24 hours</li>
+          <li>A short call to see if it's a fit</li>
+          <li>No obligation. No hard sell.</li>
+        </ul>
+      </div>
+      <p class="contact-note" style="margin-top:2rem; padding-top:2rem; border-top:0.5px solid var(--border-subtle);">Currently accepting a small number of pilot clients at a reduced rate in exchange for honest feedback and a testimonial after 30 days.</p>
+    </div>
+
+    <div class="intake-right">
+      <form class="intake-form" id="intakeForm" onsubmit="handleIntake(event)">
+
+        <div class="intake-field" style="margin-bottom:1.25rem;">
+          <label class="intake-label" for="i-name">Your Name</label>
+          <input class="intake-input" type="text" id="i-name" placeholder="First and last name" required />
+        </div>
+
+        <div class="intake-field" style="margin-bottom:1.25rem;">
+          <label class="intake-label" for="i-email">Email Address</label>
+          <input class="intake-input" type="email" id="i-email" placeholder="you@company.com" required />
+        </div>
+
+        <div class="intake-field" style="margin-bottom:2rem;">
+          <label class="intake-label" for="i-phone">Phone Number</label>
+          <input class="intake-input" type="tel" id="i-phone" placeholder="Best number to reach you" required />
+        </div>
+
+        <button type="submit" class="intake-submit">I'm Interested — Reach Out to Me</button>
+
+        <p style="margin-top:1rem; font-size:0.78rem; color:var(--text-dim); text-align:center; letter-spacing:0.03em;">Noah personally reviews every submission. You'll hear back within 24 hours.</p>
+
+        <div id="intake-success" style="display:none; margin-top:1.5rem; padding:1.5rem; background:rgba(201,168,76,0.06); border:0.5px solid rgba(201,168,76,0.2); border-radius:4px;">
+          <p style="font-size:0.9rem; color:var(--gold); font-weight:500; margin-bottom:0.4rem;">You're all set.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.7;">Noah will be in touch within 24 hours. Check your inbox — and your spam folder just in case.</p>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+<footer>
+  <span class="footer-logo">Cortex HQ</span>
+  <span class="footer-copy">© 2026 Cortex HQ · noah@cortexhq.co · 443-583-8381</span>
+</footer>
+
+<script>
+  function handleIntake(e) {
+    e.preventDefault();
+    var btn = document.querySelector('.intake-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(function() {
+      document.getElementById('intakeForm').querySelectorAll('.intake-field, .intake-submit, p').forEach(function(el){ el.style.display='none'; });
+      document.getElementById('intake-success').style.display = 'block';
+    }, 700);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        entry.target.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .problem-item, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    observer.observe(el);
+  });
+
+  function handleIntake(e) {
+    e.preventDefault();
+    document.getElementById('intakeForm').style.opacity = '0.4';
+    document.getElementById('intakeForm').style.pointerEvents = 'none';
+    setTimeout(function() {
+      document.getElementById('intakeForm').style.opacity = '1';
+      document.getElementById('intake-success').style.display = 'block';
+      document.getElementById('intakeForm').querySelectorAll('input, select, textarea, button').forEach(function(el) {
+        el.style.display = 'none';
+      });
+    }, 600);
+  }
+
+</script>
+</body>
+</html>
